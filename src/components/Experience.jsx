@@ -1,137 +1,105 @@
-import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+
+const experiences = [
+  {
+    side: 'left',
+    role: 'Web Developer',
+    organization: 'IEEE HIT SB',
+    period: 'April 2025 - Present',
+    description: 'I joined IEEE HIT SB as a Web Developer in 2025. I am responsible for developing and maintaining the official website of IEEE HIT SB.',
+  },
+  {
+    side: 'right',
+    role: 'Web/App Developer',
+    organization: 'Hitian Inside',
+    period: 'May 2025 - Present',
+    description: 'Hitian Inside is the official media club HIT,Halida. I am working as a Web/App Developer at Hitian Inside, building and maintaining web and mobile applications for the organization.',
+  },
+];
 
 const Experience = () => {
-  const experiences = [
-    {
-      role: "Web Developer",
-      organization: "IEEE HIT SB",
-      period: "April 25 - Present",
-      description: "I joined IEEE HIT SB as a Web Developer in 2025. I am responsible for developing and maintaining the official website of IEEE HIT SB.",
-      skills: ["ReactJS", "Tailwind CSS", "Javascript"]
-    }
-    // Add more experiences here as needed
-  ];
+  const [openIdx, setOpenIdx] = useState(null);
 
   return (
-    <motion.section 
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="py-16 px-4 sm:px-8 md:px-12 lg:px-20 bg-[#0f0f1a] text-white overflow-hidden"
-      id="experience"
-    >
-      <div className="max-w-6xl mx-auto" id="ex">
-        {/* Title Section */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-green-400">
-            Experience
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-3xl">
-            My work experience as a Web Developer and working on different projects.
-          </p>
-        </motion.div>
-
-        {/* Experience Cards */}
-        <div className="space-y-12">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="relative"
-            >
-              {/* Animated border effect */}
-              <motion.div
-                className="absolute inset-0 border-2 border-purple-500 rounded-xl pointer-events-none"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 0.3, scale: 1 }}
-                transition={{ delay: 0.6 + index * 0.1, duration: 0.8 }}
-                viewport={{ once: true }}
-              />
-
-              <div className="bg-[#1e1e2d] rounded-xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-                {/* Floating tech circles */}
-                <motion.div
-                  className="absolute -top-20 -right-20 w-40 h-40 bg-purple-500 rounded-full opacity-10 blur-xl"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.1, 0.15, 0.1]
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-
-                {/* Role and Organization */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.4, duration: 0.4 }}
-                  viewport={{ once: true }}
-                  className="mb-6"
+    <section id="experience" className="py-16 px-4 sm:px-8 md:px-12 lg:px-20 bg-[#0f0f1a] text-white flex flex-col items-center">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 text-center">Work Experience</h2>
+      <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center min-h-[500px]">
+        {/* Timeline vertical line */}
+        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-gray-700 to-gray-800 rounded-full -translate-x-1/2 z-0" />
+        <div className="w-full h-[420px] relative">
+          {/* Left card - top left */}
+          <div className="absolute left-0 top-0 flex flex-col items-end md:pr-8 w-1/2">
+            <div className="w-full max-w-md bg-[#181f2a] border border-gray-700 rounded-2xl shadow-lg p-6 relative">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <h3 className="text-xl font-bold">Web Developer</h3>
+                  <div className="text-gray-400 text-sm">IEEE HIT SB</div>
+                  <div className="text-gray-500 text-xs">April 2025 - Present</div>
+                </div>
+                <button
+                  className="ml-4 p-2 rounded-full hover:bg-gray-800 transition"
+                  onClick={() => setOpenIdx(openIdx === 0 ? null : 0)}
+                  aria-label="Toggle Description"
                 >
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-purple-400">
-                    {exp.role}
-                  </h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2">
-                    <p className="text-lg text-blue-300">{exp.organization}</p>
-                    <span className="hidden sm:block text-gray-500">•</span>
-                    <p className="text-gray-400">{exp.period}</p>
-                  </div>
-                </motion.div>
-
-                {/* Description */}
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.5, duration: 0.4 }}
-                  viewport={{ once: true }}
-                  className="text-gray-300 mb-6 leading-relaxed"
-                >
-                  {exp.description}
-                </motion.p>
-
-                {/* Skills */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.6, duration: 0.4 }}
-                  viewport={{ once: true }}
-                >
-                  <h4 className="text-sm font-semibold text-gray-400 mb-2">Skills:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.skills.map((skill, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.7 + i * 0.05, duration: 0.3 }}
-                        viewport={{ once: true }}
-                        className="px-3 py-1 bg-[#2a2a3a] text-blue-300 rounded-full text-sm"
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
-                </motion.div>
+                  {openIdx === 0 ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                </button>
               </div>
-            </motion.div>
-          ))}
+              <AnimatePresence>
+                {openIdx === 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-gray-300 text-sm mt-2"
+                  >
+                    I joined IEEE HIT SB as a Web Developer in 2025. I am responsible for developing and maintaining the official website of IEEE HIT SB.
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            {/* Timeline dot */}
+            <div className="absolute right-[-18px] top-1/2 -translate-y-1/2 w-4 h-4 bg-[#232b3b] border-2 border-purple-400 rounded-full z-10" />
+          </div>
+          {/* Right card - bottom right */}
+          <div className="absolute right-0 bottom-0 flex flex-col items-start md:pl-8 w-1/2">
+            <div className="w-full max-w-md bg-[#181f2a] border border-gray-700 rounded-2xl shadow-lg p-6 relative">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <h3 className="text-xl font-bold">Web/App Developer</h3>
+                  <div className="text-gray-400 text-sm">Hitian Inside</div>
+                  <div className="text-gray-500 text-xs">May 2025 - Present</div>
+                </div>
+                <button
+                  className="ml-4 p-2 rounded-full hover:bg-gray-800 transition"
+                  onClick={() => setOpenIdx(openIdx === 1 ? null : 1)}
+                  aria-label="Toggle Description"
+                >
+                  {openIdx === 1 ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                </button>
+              </div>
+              <AnimatePresence>
+                {openIdx === 1 && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-gray-300 text-sm mt-2"
+                  >
+                    Hitian Inside is the official media club HIT,Halida. I am working as a Web/App Developer at Hitian Inside, building and maintaining web and mobile applications for the organization.
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            {/* Timeline dot */}
+            <div className="absolute left-[-18px] top-1/2 -translate-y-1/2 w-4 h-4 bg-[#232b3b] border-2 border-purple-400 rounded-full z-10" />
+          </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

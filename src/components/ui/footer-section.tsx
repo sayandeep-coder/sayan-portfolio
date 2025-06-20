@@ -1,6 +1,8 @@
+"use client";
 import React from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Instagram, Linkedin, Github, Mail } from 'lucide-react';
+import { FacebookIcon, InstagramIcon, LinkedinIcon, GithubIcon, MailIcon } from 'lucide-react';
 
 const navbarLinks = [
   { title: 'Home', href: '#home' },
@@ -9,13 +11,14 @@ const navbarLinks = [
   { title: 'GitHub', href: '#github' },
   { title: 'Projects', href: '#projects' },
   { title: 'Connect', href: '#connect' },
+  { title: 'Login', href: '#login' },
 ];
 
 const socialLinks = [
-  { title: 'Instagram', href: 'https://www.instagram.com/_mr.purkait_/', icon: Instagram },
-  { title: 'LinkedIn', href: 'https://www.linkedin.com/in/sayandeeppurkait/', icon: Linkedin },
-  { title: 'GitHub', href: 'https://github.com/sayandeep-coder', icon: Github },
-  { title: 'Gmail', href: 'mailto:sayandeeppurkait@gmail.com', icon: Mail },
+  { title: 'Instagram', href: 'https://www.instagram.com/_mr.purkait_/', icon: InstagramIcon },
+  { title: 'LinkedIn', href: 'https://www.linkedin.com/in/sayandeeppurkait/', icon: LinkedinIcon },
+  { title: 'GitHub', href: 'https://github.com/sayandeep-coder', icon: GithubIcon },
+  { title: 'Gmail', href: 'mailto:sayandeeppurkait@gmail.com', icon: MailIcon },
 ];
 
 export function Footer() {
@@ -25,7 +28,7 @@ export function Footer() {
       <div className="grid w-full gap-8 xl:grid-cols-2 xl:gap-8">
         {/* Navbar Links Row */}
         <AnimatedContainer className="space-y-4 flex flex-col items-center">
-          <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-2"></h3>
+          <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Navigation</h3>
           <ul className="flex flex-wrap justify-center gap-6 text-sm">
             {navbarLinks.map((link) => (
               <li key={link.title}>
@@ -41,7 +44,7 @@ export function Footer() {
         </AnimatedContainer>
         {/* Social Links Row */}
         <AnimatedContainer className="space-y-4 flex flex-col items-center">
-          <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Social Media Links</h3>
+          <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Get in Touch</h3>
           <div className="flex gap-6">
             {socialLinks.map((link) => (
               <a
@@ -58,14 +61,18 @@ export function Footer() {
           </div>
         </AnimatedContainer>
       </div>
-      <p className="text-muted-foreground mt-8 text-lg text-center">
-        © {new Date().getFullYear()} Sayandeep Purkait. All rights reserved.
-      </p>
+      <p className="text-muted-foreground mt-8 text-xs text-center">© {new Date().getFullYear()} Sayandeep Purkait. All rights reserved.</p>
     </footer>
   );
 }
 
-function AnimatedContainer({ className, delay = 0.1, children }) {
+type ViewAnimationProps = {
+  delay?: number;
+  className?: ComponentProps<typeof motion.div>['className'];
+  children: ReactNode;
+};
+
+function AnimatedContainer({ className, delay = 0.1, children }: ViewAnimationProps) {
   const shouldReduceMotion = useReducedMotion();
   if (shouldReduceMotion) {
     return <div className={className}>{children}</div>;
@@ -82,3 +89,6 @@ function AnimatedContainer({ className, delay = 0.1, children }) {
     </motion.div>
   );
 }
+
+// Usage: import { Footer } from '@/components/ui/footer-section';
+// Place <Footer /> at the bottom of your main layout or App component. 

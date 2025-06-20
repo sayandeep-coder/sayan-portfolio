@@ -1,275 +1,117 @@
+import React, { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 
-import { motion } from 'framer-motion';
-import { Typewriter } from 'react-simple-typewriter';
-import { useRef, useEffect, useState } from 'react';
+function cn(...args) {
+  return args.filter(Boolean).join(" ");
+}
+
+const navItems = [
+  "Home",
+  "Skills",
+  "Experience",
+  "GitHub",
+  "Projects",
+  "Connect",
+  "Login",
+];
+
+const skills = [
+  "JavaScript", "ReactJS", "Flutter", "C", "Python", "Java", "Dart", "TailwindCSS", "Bootstrap"
+];
 
 const Hero = () => {
-  const containerRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) / 20;
-        const y = (e.clientY - rect.top - rect.height / 2) / 20;
-        setMousePosition({ x, y });
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-[#0f0f1a] text-white flex flex-col md:flex-row items-center justify-between px-8 md:px-20 pt-24 overflow-hidden" id="home">
-      {/* Left Side Text */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1 }}
-        className="md:w-1/2 z-10"
-      >
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Hi, I am <span className="text-green-400">Sayandeep Purkait</span>
+    <div className="min-h-screen bg-gradient-to-br from-[#181f2a] via-[#232b3b] to-[#181f2a] text-white flex flex-col items-center justify-center px-4 pt-24 overflow-hidden" id="home">
+      {/* Hero Content */}
+      <div className="flex flex-col items-center justify-center w-full flex-1 mt-32 mb-8">
+        <h1 className="text-4xl md:text-6xl font-bold text-center mb-4">
+          Hello, I'm <span className="text-[#4fd1c5]">Sayandeep Purkait</span>
         </h1>
-        <h2 className="text-2xl md:text-3xl font-semibold mb-6">
-          I am a{' '}
-          <span className="text-purple-400">
-            <Typewriter
-              words={['Frontend Developer', 'iOS Developer', 'Android Developer', 'Programmer']}
-              loop={true}
-              cursor
-              cursorStyle="|"
-              typeSpeed={70}
-              deleteSpeed={50}
-              delaySpeed={1500}
-            />
-          </span>
-        </h2>
-        <p className="text-gray-300 mb-6">
-          First year Computer Science with AI & ML student at Haldia Institute of Technology and a freelance web / App developer
-          specializing in modern web technologies like ReactJS, Javascript, TailwindCSS,   Flutter, C, Python, Java.
-        </p>
-        <div className="mb-4 text-sm">
-          🚀 Hiring? 💼 Have a project?
-        </div>
-        <div className="mb-6 text-sm">
-          Email: <a href="mailto:your.email@gmail.com" className="text-blue-400">sayandeeppurkait@gmail.com</a>
-        </div>
-        <button id="hh" className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg transition">
-          Resume !
-        </button>
-        <button className="bg-purple-600 hover:bg-purple-700 ml-3 text-white px-6 py-2 rounded-full font-semibold shadow-lg transition" id="h">
-          Hire Me !
-        </button>
-      </motion.div>
-
-      {/* Right Side Image with Advanced Animations */}
-      <div className="md:w-1/2 flex justify-center mt-12 md:mt-0 relative h-96" ref={containerRef}>
-        {/* Background elements that will move with mouse */}
-        <motion.div 
-          className="absolute inset-0"
-          animate={{
-            x: mousePosition.x,
-            y: mousePosition.y
-          }}
-          transition={{ type: 'spring', stiffness: 100, damping: 10 }}
+        {/* Animated subtitle with typewriter effect */}
+        <TypewriterRoles />
+        <a
+          href="https://drive.google.com/drive/folders/15JXTS08319pdts5sHQAg6diXbdzMoUDK?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-[#232b3b] hover:bg-[#2d3748] text-white px-6 py-2 rounded-full font-semibold shadow-lg transition mb-8 border border-[#2d3748]"
         >
-          {/* Hexagonal Grid Background */}
-          <motion.div 
-            className="absolute inset-0 opacity-10"
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 120,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          >
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <pattern id="hexagons" width="10" height="17.32" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-                <polygon points="5,8.66 10,8.66 7.5,13.66 2.5,13.66" fill="none" stroke="purple" strokeWidth="0.5"/>
-                <polygon points="5,0 10,0 7.5,5 2.5,5" fill="none" stroke="purple" strokeWidth="0.5"/>
-              </pattern>
-              <rect width="100%" height="100%" fill="url(#hexagons)" />
-            </svg>
-          </motion.div>
-
-          {/* Pulsing Core Glow */}
-          <motion.div
-            className="absolute rounded-full bg-purple-500 w-72 h-72"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{
-              opacity: [0.1, 0.3, 0.1],
-              scale: [0.8, 1.1, 0.8]
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-
-          {/* Rotating Tech Rings */}
-          {[1, 1.5, 2].map((scale, i) => (
-            <motion.div
-              key={i}
-              className="absolute border border-purple-400 rounded-full"
-              style={{
-                width: `${scale * 100}%`,
-                height: `${scale * 100}%`,
-                borderWidth: `${0.5 / scale}px`,
-                opacity: 0.3 / scale
-              }}
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: 40 + i * 20,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            />
-          ))}
-
-          {/* Floating Binary Code Particles */}
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={`binary-${i}`}
-              className="absolute text-purple-300 text-xs font-mono"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -50, -100],
-                opacity: [0, 0.8, 0],
-              }}
-              transition={{
-                duration: 10 + Math.random() * 20,
-                delay: Math.random() * 5,
-                repeat: Infinity,
-                repeatDelay: Math.random() * 10
-              }}
-            >
-              {Math.random() > 0.5 ? '1' : '0'}
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Main Profile Image Container - Now Static */}
-        <div className="relative z-10">
-          <div className="rounded-full border-4 border-purple-500 p-2 bg-gradient-to-br from-purple-600 to-blue-600 shadow-2xl relative overflow-hidden">
-            {/* Inner Glow Effect */}
-            <motion.div
-              className="absolute inset-0 rounded-full bg-purple-500 opacity-20 blur-md"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.2, 0.4, 0.2]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            
-            {/* The actual profile image - fixed position */}
-            <img
-              src="my.jpg"
-              alt="Profile"
-              className="rounded-full w-64 h-64 object-cover relative z-10 select-none"
-              draggable="false"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75A2.25 2.25 0 0014.25 4.5h-4.5A2.25 2.25 0 007.5 6.75v13.5A2.25 2.25 0 009.75 22.5h4.5a2.25 2.25 0 002.25-2.25V13.5m-6.75 0h6.75m0 0l-2.25-2.25m2.25 2.25l-2.25 2.25" />
+          </svg>
+          View Resume
+        </a>
+        {/* Contact Card/Button */}
+        <a
+          href="mailto:sayandeeppurkait@gmail.com"
+          className="flex items-center gap-2 bg-[#232b3b] text-white px-6 py-3 rounded-2xl font-semibold shadow-lg transition mb-8 border border-[#2d3748] text-lg hover:border-cyan-500"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5A2.25 2.25 0 0119.5 19.5h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-.876 1.797l-7.5 5.625a2.25 2.25 0 01-2.748 0l-7.5-5.625A2.25 2.25 0 012.25 6.993V6.75" />
+          </svg>
+          Have a project? Mail me <span className="ml-1 text-decoration-none text-cyan-600">sayandeeppurkait@gmail.com</span>
+        </a>
+        <div className="flex flex-col items-center w-full">
+          <div className="relative w-full max-w-4xl overflow-hidden">
+            <div className="flex animate-scroll-skills whitespace-nowrap">
+              {skills.map((skill, i) => (
+                <div key={i} className="flex flex-col items-center flex-grow min-w-[140px] mx-[10px]">
+                  <span className="text-lg font-semibold bg-gray-800 px-4 py-2 rounded-full border border-gray-700 shadow w-full text-center">{skill}</span>
+                </div>
+              ))}
+              {skills.map((skill, i) => (
+                <div key={`repeat-${i}`} className="flex flex-col items-center flex-grow min-w-[140px] mx-[10px]">
+                  <span className="text-lg font-semibold bg-gray-800 px-4 py-2 rounded-full border border-gray-700 shadow w-full text-center">{skill}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        {/* Animated Connection Nodes */}
-        {[...Array(8)].map((_, i) => {
-          const angle = (i * 45) * (Math.PI / 180);
-          const distance = 120;
-          return (
-            <motion.div
-              key={`node-${i}`}
-              className="absolute w-3 h-3 bg-blue-400 rounded-full z-0"
-              style={{
-                left: `calc(50% + ${Math.cos(angle) * distance}px - 6px)`,
-                top: `calc(50% + ${Math.sin(angle) * distance}px - 6px)`,
-              }}
-              animate={{
-                scale: [1, 1.5, 1],
-                boxShadow: [
-                  '0 0 0 0 rgba(96, 165, 250, 0.4)',
-                  '0 0 0 10px rgba(96, 165, 250, 0)',
-                  '0 0 0 0 rgba(96, 165, 250, 0)'
-                ],
-                x: mousePosition.x / 2,
-                y: mousePosition.y / 2
-              }}
-              transition={{
-                duration: 3,
-                delay: i * 0.3,
-                repeat: Infinity,
-                ease: "easeOut"
-              }}
-            />
-          );
-        })}
-
-        {/* Dynamic Connection Lines */}
-        <svg className="absolute w-full h-full" style={{ pointerEvents: 'none' }}>
-          {[...Array(8)].map((_, i) => {
-            const angle1 = (i * 45) * (Math.PI / 180);
-            const angle2 = ((i + 2) * 45) * (Math.PI / 180);
-            const distance = 120;
-            
-            return (
-              <motion.path
-                key={`line-${i}`}
-                d={`
-                  M ${50 + Math.cos(angle1) * 0.3 * distance}% 
-                  ${50 + Math.sin(angle1) * 0.3 * distance}%
-                  Q ${50 + Math.cos(angle1) * 0.6 * distance}% 
-                  ${50 + Math.sin(angle1) * 0.6 * distance}%,
-                  ${50 + Math.cos(angle2) * 0.6 * distance}% 
-                  ${50 + Math.sin(angle2) * 0.6 * distance}%
-                  T ${50 + Math.cos(angle2) * 0.3 * distance}% 
-                  ${50 + Math.sin(angle2) * 0.3 * distance}%
-                `}
-                fill="none"
-                stroke="url(#gradient)"
-                strokeWidth="0.5"
-                strokeDasharray="5,5"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: 1, 
-                  opacity: 0.6,
-                  x: mousePosition.x / 3,
-                  y: mousePosition.y / 3
-                }}
-                transition={{
-                  duration: 2,
-                  delay: i * 0.1,
-                  repeat: Infinity,
-                  repeatType: 'reverse'
-                }}
-              />
-            );
-          })}
-          
-          <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8b5cf6" />
-              <stop offset="100%" stopColor="#3b82f6" />
-            </linearGradient>
-          </defs>
-        </svg>
       </div>
     </div>
   );
 };
+
+function TypewriterRoles() {
+  const roles = [
+    "Frontend Developer",
+    "iOS Developer",
+    "Android Developer",
+    "Programmer"
+  ];
+  const [index, setIndex] = React.useState(0);
+  const [displayed, setDisplayed] = React.useState("");
+  const [typing, setTyping] = React.useState(true);
+
+  React.useEffect(() => {
+    let timeout;
+    if (typing) {
+      if (displayed.length < roles[index].length) {
+        timeout = setTimeout(() => {
+          setDisplayed(roles[index].slice(0, displayed.length + 1));
+        }, 70);
+      } else {
+        timeout = setTimeout(() => setTyping(false), 1200);
+      }
+    } else {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayed(roles[index].slice(0, displayed.length - 1));
+        }, 40);
+      } else {
+        setTyping(true);
+        setIndex((prev) => (prev + 1) % roles.length);
+      }
+    }
+    return () => clearTimeout(timeout);
+  }, [displayed, typing, index, roles]);
+
+  return (
+    <div className="text-lg md:text-2xl text-center text-gray-300 mb-8 h-8 flex items-center justify-center min-h-[2.5rem]">
+      I am a <span className="text-[#4fd1c5] ml-2">{displayed}<span className="animate-pulse">|</span></span>
+    </div>
+  );
+}
 
 export default Hero;
 

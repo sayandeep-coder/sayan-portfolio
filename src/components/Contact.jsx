@@ -1,84 +1,68 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Linkedin, Github, Instagram } from 'lucide-react';
 
-const Contact = () => {
+const socials = [
+  {
+    icon: <Github className="w-10 h-10" />, label: 'GitHub', link: 'https://github.com/sayandeep-coder', color: 'bg-[#232b3b] text-white',
+  },
+  {
+    icon: <Instagram className="w-10 h-10" />, label: 'Instagram', link: 'https://www.instagram.com/_mr.purkait_/', color: 'bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white',
+  },
+  {
+    icon: <Linkedin className="w-10 h-10" />, label: 'LinkedIn', link: 'https://www.linkedin.com/in/sayandeeppurkait/', color: 'bg-[#0077b5] text-white',
+  },
+  {
+    icon: <Mail className="w-10 h-10" />, label: 'Gmail', link: 'mailto:sayandeeppurkait@gmail.com', color: 'bg-[#ea4335] text-white',
+  },
+];
+
+const Connect = () => {
   return (
-    <section id="contact" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-900 to-slate-900 px-6 py-16">
-      <motion.h2
-        className="text-4xl md:text-5xl font-bold text-white mb-4"
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        Contact
-      </motion.h2>
-
-      <motion.p
-        className="text-center text-lg text-gray-300 mb-12 max-w-xl"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-      >
-        Feel free to reach out to me for any questions or opportunities!
-      </motion.p>
-
-      <motion.form
-        className="w-full max-w-xl bg-[#111827] rounded-2xl shadow-2xl p-8 space-y-8"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        {/* Email */}
-        <div className="relative">
-          <label className="text-white text-sm absolute -top-3 left-2 bg-[#111827] px-1">Email</label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="w-full border-b border-purple-500 bg-transparent text-white p-2 outline-none placeholder-gray-400"
-          />
-        </div>
-
-        {/* Name */}
-        <div className="relative">
-          <label className="text-white text-sm absolute -top-3 left-2 bg-[#111827] px-1">Name</label>
-          <input
-            type="text"
-            placeholder="Enter your name"
-            className="w-full border-b border-purple-500 bg-transparent text-white p-2 outline-none placeholder-gray-400"
-          />
-        </div>
-
-        {/* Subject */}
-        <div className="relative">
-          <label className="text-white text-sm absolute -top-3 left-2 bg-[#111827] px-1">Subject</label>
-          <input
-            type="text"
-            placeholder="Write subject here"
-            className="w-full border-b border-purple-500 bg-transparent text-white p-2 outline-none placeholder-gray-400"
-          />
-        </div>
-
-        {/* Message */}
-        <div className="relative">
-          <label className="text-white text-sm absolute -top-3 left-2 bg-[#111827] px-1">Message</label>
-          <textarea
-            rows="5"
-            placeholder="Write your message..."
-            className="w-full border-b border-purple-500 bg-transparent text-white p-2 outline-none resize-none placeholder-gray-400"
-          ></textarea>
-        </div>
-
-        {/* Send Button */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-full shadow-lg transition-all duration-300"
+    <section id="connect" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#181f2a] via-[#232b3b] to-[#181f2a] px-4 py-16">
+      <div className="w-full max-w-3xl mx-auto bg-white/5 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-16 flex flex-col items-center border border-white/10">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold text-white mb-2 text-center"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          Send 🚀
-        </motion.button>
-      </motion.form>
+          Let's Connect
+        </motion.h2>
+        <motion.p
+          className="text-center text-lg text-gray-300 mb-10 max-w-xl"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          Find me on social media or send a direct message to get in touch
+        </motion.p>
+        <div className="w-full">
+          <h3 className="text-xl font-semibold text-white text-center mb-8">Connect With Me</h3>
+          <div className="flex flex-wrap justify-center gap-8">
+            {socials.map((s, i) => (
+              <motion.a
+                key={s.label}
+                href={s.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex flex-col items-center group`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+                whileHover={{ scale: 1.1 }}
+              >
+                <span className={`rounded-full ${s.color} flex items-center justify-center w-20 h-20 shadow-lg mb-3 transition-all group-hover:shadow-2xl group-hover:scale-110`}>
+                  {s.icon}
+                </span>
+                <span className="text-white text-base font-medium mt-1 opacity-80 group-hover:opacity-100 transition-all">{s.label}</span>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
 
-export default Contact;
-
+export default Connect; 

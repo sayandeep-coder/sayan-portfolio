@@ -7,3 +7,16 @@
 #hh:hover {
   background-color: rgb(45, 180, 192);
 }
+
+@keyframes scroll-skills {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-skills {
+  animation: scroll-skills 20s linear infinite;
+}
