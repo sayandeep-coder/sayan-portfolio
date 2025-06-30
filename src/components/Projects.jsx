@@ -50,7 +50,15 @@ const mobileProjects = [
     image: 'https://www.actitime.com/wp-content/uploads/2024/03/1Money-472x1024.png', // Placeholder, replace with your own
     description:
       'A simple and intuitive expense tracker app to manage your daily expenses. Built with Flutter and Firebase.',
-    github: 'https://github.com/sayandeep-coder/expense-tracker',
+    github: 'https://github.com/sayandeep-coder/flutter-Expense-Tracker-App',
+    skills: ['Flutter', 'Dart'],
+  },
+  {
+    title: 'Flutter Meal App',
+    image: 'https://lasta.app/wp-content/uploads/2023/09/Lasta.png', // Placeholder image, replace with your own if available
+    description:
+      'A beautiful meal recipe app built with Flutter, allowing users to browse, filter, and favorite meals. Features category-based navigation and a modern UI.',
+    github: 'https://github.com/sayandeep-coder/flutter-meal-app',
     skills: ['Flutter', 'Dart'],
   },
 ];
